@@ -1,7 +1,7 @@
 <template>
   <van-cell center title="心动模式">
     <template #right-icon>
-      <van-switch v-model="isMatchMode" size="24" />
+      <van-switch v-model="isMatchMode" size="24"/>
     </template>
   </van-cell>
   <van-empty v-if="!userList || userList.length < 1" description="数据为空"/>
@@ -9,7 +9,9 @@
 
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
-import {Toast} from "vant";
+import { Toast } from "vant";
+import myAxios from "../utils/myAxios.ts";
+import { UserType } from "../models/user";
 
 const isMatchMode = ref<boolean>(false);
 
