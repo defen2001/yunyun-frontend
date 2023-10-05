@@ -1,19 +1,11 @@
+import router from '@/routers'
+import pinia from '@/store'
+// Vant 组件样式
+import 'vant/es/dialog/style'
+import 'vant/es/image-preview/style'
+import 'vant/es/notify/style'
+import 'vant/es/toast/style'
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
-import Vant from 'vant';
-import routes from "./routers";
-import * as VueRouter from 'vue-router';
 
-const app = createApp(App);
-app.use(Vant);
-
-
-const router = VueRouter.createRouter({
-    // 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
-    history: VueRouter.createWebHistory(),
-    routes, // `routes: routes` 的缩写
-})
-
-app.use(router);
-app.mount('#app')
+createApp(App).use(router).use(pinia).mount('#app')
