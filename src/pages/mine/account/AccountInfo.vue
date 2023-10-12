@@ -14,7 +14,6 @@ const userInfo = ref<User>({} as User)
 
 onMounted(() => {
   getAccountInfo().then((resp) => {
-    console.log(resp)
     userInfo.value = resp.data.data
     userInfo.value.createTime = userInfo.value.createTime.split(' ')[0]
   })
