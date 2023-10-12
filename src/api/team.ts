@@ -3,13 +3,13 @@ import { Team, TeamInvitation, TeamQuery } from '@/models/team'
 import { User } from '@/models/user'
 import $axios from '@/utils/axios.ts'
 
-export function createTeam(team: Team) {
-  return $axios.post<RespStr>('/team', team)
+export function addTeam(team: Team) {
+  return $axios.post<RespStr>('/team/add', team)
 }
 
-export function joinPublicTeam(id: string, password?: string) {
+export function joinPublicTeam(teamId: string, password?: string) {
   return $axios.post<RespStr>('/team/join', {
-    id, password,
+    teamId, password,
   })
 }
 
@@ -24,11 +24,13 @@ export function acceptTeamInvitation(code: string) {
 }
 
 export function quitOrDisbandTeam(teamId: string) {
-  return $axios.delete<RespStr>('/team/' + teamId)
+  return $axios.post<RespStr>('/team/quit', {
+    teamId,
+  })
 }
 
 export function updateTeamInfo(team: Team) {
-  return $axios.put<RespStr>('/team', team)
+  return $axios.post<RespStr>('/team/update', team)
 }
 
 export function queryByTeamId(teamId: string) {

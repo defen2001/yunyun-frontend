@@ -14,6 +14,7 @@ const userInfo = ref<User>({} as User)
 
 onMounted(() => {
   getAccountInfo().then((resp) => {
+    console.log(resp)
     userInfo.value = resp.data.data
     userInfo.value.createTime = userInfo.value.createTime.split(' ')[0]
   })
@@ -117,9 +118,19 @@ const handleLogout = () => {
       title="手机"
       to="/account/phone"
   />
+  <!-- 个人邮箱 -->
+  <van-cell
+      :to="{path: '/account/email', query: {data: userInfo.email}}"
+      is-link
+      title="邮箱"
+  >
+    <template #value>
+      <van-text-ellipsis :content="userInfo.email || '未填写'" />
+    </template>
+  </van-cell>
   <!-- 账号密码 -->
   <van-cell
-      :to="{path: '/account/password', query: {data: userInfo.phone}}"
+      :to="{path: '/account/password'}"
       is-link
       title="账号密码"
       value="修改"

@@ -1,29 +1,18 @@
 <script lang="ts" setup>
-import { updatePhoneNumber } from '@/api/user.ts'
-import SendCode from '@/components/SendCode.vue'
+import { updateBasicInfo } from '@/api/user.ts'
+import { User } from '@/models/user'
 import { computed, reactive } from 'vue'
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
 
 const phone = reactive({ value: '', valid: false })
-const code = reactive({ value: '', valid: false })
 
-const handleCodeChange = (value: string) => {
-  code.value = value
-  code.valid = /^\d{6}$/.test(value)
-}
 
 const updateButtonValid = computed(() => {
-  return phone.valid && code.valid
+  return phone.valid
 })
 
 const handleSubmit = () => {
-  updatePhoneNumber(phone.value, code.value).then(() => {
-    localStorage.removeItem('userId')
-    localStorage.removeItem('token')
-    router.push('/login')
-  })
+  updateBasicInfo({ phone: phone.value } as User)
 }
 </script>
 
@@ -38,12 +27,6 @@ const handleSubmit = () => {
           placeholder="请输入手机号"
           style="margin-top: 16px"
           type="tel"
-      />
-      <!-- 验证码 -->
-      <SendCode
-          :phone="phone.value"
-          :phoneValid="phone.valid"
-          @update:code="handleCodeChange"
       />
       <!-- 换绑按钮 -->
       <van-button

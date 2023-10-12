@@ -1,51 +1,52 @@
 <script lang="ts" setup>
 import { updatePassword } from '@/api/user.ts'
-import SendCode from '@/components/SendCode.vue'
 import { computed, reactive } from 'vue'
 
-const props = defineProps<{ phone: string }>()
-
-const code = reactive({ value: '', valid: false })
 const password = reactive({ value: '', valid: false })
+const oldPassword = reactive({ value: '', valid: false })
+const confirmPassword = reactive({ value: '', valid: false })
 
-const handleCodeChange = (value: string) => {
-  code.value = value
-  code.valid = /^\d{6}$/.test(value)
-}
 
 const updateButtonValid = computed(() => {
-  return password.valid && code.valid
+  return password.valid && oldPassword.valid && confirmPassword.valid
 })
 
 const handleSubmit = () => {
-  updatePassword(password.value, code.value)
+  updatePassword(password.value, oldPassword.value, confirmPassword.value)
 }
 </script>
 
 <template>
-  <van-form label-width="50px" @submit="handleSubmit">
+  <van-form label-width="60px" @submit="handleSubmit">
     <van-cell-group inset>
-      <!-- 手机号 -->
+      <!-- 旧密码 -->
       <van-field
-          v-model="props.phone"
-          disabled
-          label="手机号"
-          style="margin-top: 16px"
-          type="tel"
+          v-model="oldPassword.value"
+          :rules="[{ required: true, message: '请输入旧密码' }]"
+          :update:model-value="oldPassword.valid = oldPassword.value !== null"
+          label="旧密码"
+          placeholder="请输入旧密码"
+          type="password"
       />
-      <!-- 验证码 -->
-      <SendCode
-          :phone="undefined"
-          :phoneValid="true"
-          @update:code="handleCodeChange"
-      />
-      <!-- 密码 -->
+      <!-- 新密码 -->
       <van-field
           v-model="password.value"
-          :rules="[{ pattern: /^.{6,}$/, message: '密码必须大于 6 位' }]"
-          :update:model-value="password.valid = /^.{6,}$/.test(password.value)"
+          :rules="[{ pattern: /^.{8,}$/, message: '密码必须大于 8 位' }]"
+          :update:model-value="password.valid = /^.{8,}$/.test(password.value)"
           label="新密码"
           placeholder="请输入新密码"
+          type="password"
+      />
+      <!-- 确认密码 -->
+      <van-field
+          v-model="confirmPassword.value"
+          :rules="[
+            { pattern: /^.{8,}$/, message: '密码必须大于 8 位' },
+            { validator: (value) => value === password.value, message: '两次密码不一致' }
+          ]"
+          :update:model-value="confirmPassword.valid = /^.{8,}$/.test(confirmPassword.value)"
+          label="确认密码"
+          placeholder="请再次输入新密码"
           type="password"
       />
       <!-- 修改密码按钮 -->

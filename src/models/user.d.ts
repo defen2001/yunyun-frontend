@@ -6,7 +6,7 @@ export interface User {
   /**
    * 账号
    */
-  account: string,
+  userAccount: string,
   /**
    * 昵称
    */
@@ -31,6 +31,10 @@ export interface User {
    * 手机
    */
   phone: string,
+  /**
+   * 邮箱
+   */
+  email: string,
   /**
    * 创建时间
    */

@@ -28,7 +28,7 @@ const isLeader = ref(false)
 onMounted(() => {
   queryByTeamId(props.teamId).then((resp) => {
     teamInfo.value = resp.data.data
-    isLeader.value = teamInfo.value.leader.id === currentUserId
+    isLeader.value = teamInfo.value.leader.id == currentUserId
     listTeamMember(props.teamId).then((resp) => {
       let data = resp.data.data
       let leaderId = teamInfo.value.leader.id
@@ -143,7 +143,7 @@ const handleJoin = () => {
           </van-button>
         </van-space>
         <van-button
-            v-else-if="members.find(member => member.id === currentUserId)"
+            v-else-if="members.find(member => member.id == currentUserId)"
             icon="revoke"
             plain
             size="small"

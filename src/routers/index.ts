@@ -37,6 +37,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import(`@/pages/Login.vue`),
     },
     {
+        path: '/register',
+        meta: { title: '注册' },
+        component: () => import(`@/pages/Register.vue`),
+    },
+    {
         path: '/account',
         meta: { title: '账号信息', requiresAuth: true },
         component: () => import(`@/pages/mine/account/AccountInfo.vue`),
@@ -57,6 +62,12 @@ const routes: RouteRecordRaw[] = [
         path: '/account/phone',
         meta: { title: '换绑手机', requiresAuth: true },
         component: () => import(`@/pages/mine/account/EditPhone.vue`),
+    },
+    {
+        path: '/account/email',
+        meta: { title: '编辑邮箱', requiresAuth: true },
+        component: () => import(`@/pages/mine/account/EditEmail.vue`),
+        props: (route) => ({ email: route.query.data }),
     },
     {
         path: '/account/password',

@@ -12,48 +12,42 @@ export function sendVerificationCode(phoneNumber?: string) {
   })
 }
 
-export function loginByVerificationCode(phoneNumber: string, verificationCode: string) {
-  return $axios.post<RespObj<UserLoginSuccess>>('/user/login/byCode', {
-    phoneNumber, verificationCode,
+export function userRegister(userAccount: string, userPassword: string, checkPassword: string) {
+  return $axios.post<RespObj<UserLoginSuccess>>('/user/register', {
+    userAccount, userPassword, checkPassword,
   })
 }
 
-export function loginByPassword(phoneNumber: string, password: string) {
-  return $axios.post<RespObj<UserLoginSuccess>>('/user/login/byPassword', {
-    phoneNumber, password,
+export function loginByPassword(userAccount: string, userPassword: string) {
+  return $axios.post<RespObj<UserLoginSuccess>>('/user/login', {
+    userAccount, userPassword,
   })
 }
 
 export function getAccountInfo() {
-  return $axios.get<RespObj<User>>('/user/account')
+  return $axios.get<RespObj<User>>('/user/get/login')
 }
 
-export function updatePhoneNumber(phoneNumber: string, verificationCode: string) {
-  return $axios.put<RespStr>('/user/account/phone', {
-    phoneNumber, verificationCode,
-  })
-}
-
-export function updatePassword(password: string, verificationCode: string) {
-  return $axios.put<RespStr>('/user/account/password', {
-    password, verificationCode,
+export function updatePassword(password: string, oldPassword: string, confirmPassword: string) {
+  return $axios.put<RespStr>('/user/password', {
+    password, oldPassword, confirmPassword,
   })
 }
 
 export function updateAvatar(file: File) {
   let formData = new FormData()
   formData.append('file', file)
-  return $axios.put<RespStr>('/user/account/avatar', formData, {
+  return $axios.post<RespStr>('/file/upload', formData, {
     headers: { 'Content-Type': 'multipart/form-data' }, transformRequest: [ () => formData ],
   })
 }
 
 export function updateBasicInfo(user: User) {
-  return $axios.put<RespStr>('/user/account/basic', user)
+  return $axios.put<RespStr>('/user/update/my', user)
 }
 
 export function updateTags(tags: string[]) {
-  return $axios.put<RespStr>('/user/account/tags', tags)
+  return $axios.put<RespStr>('/user/add/tags', tags)
 }
 
 export function queryByUserId(userId: string) {

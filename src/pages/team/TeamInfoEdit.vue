@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { createTeam, queryByTeamId, updateTeamInfo } from '@/api/team.ts'
+import { addTeam, queryByTeamId, updateTeamInfo } from '@/api/team.ts'
 import { Team } from '@/models/team'
 import { DateUtil } from '@/utils/dateUtil.ts'
 import { computed, onMounted, ref } from 'vue'
@@ -23,7 +23,7 @@ onMounted(() => {
       let tempTeamInfo = resp.data.data
       // 若队伍不存在或当前用户非队长则返回上一页
       if (!tempTeamInfo?.id ||
-          tempTeamInfo.leader.id !== localStorage.getItem('userId')) {
+          tempTeamInfo.leader.id != localStorage.getItem('userId')) {
         router.back()
         return
       }
@@ -67,10 +67,11 @@ const onCalendarConfirm = (date: Date) => {
  */
 const handleSubmit = () => {
   if (props.type === 'create') {
-    createTeam(teamInfo.value)
+    addTeam(teamInfo.value)
     router.back()
   } else {
     updateTeamInfo(teamInfo.value)
+    router.back()
   }
 }
 </script>

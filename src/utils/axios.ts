@@ -6,8 +6,9 @@ import { showDialog, showNotify } from 'vant'
 const $axios = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL, // 公共 URL
   timeout: import.meta.env.VITE_API_TIMEOUT, // 超时时间
+  withCredentials: true
 })
-
+$axios.defaults.withCredentials = true
 // 配置请求拦截器
 $axios.interceptors.request.use((config) => {
   // 添加请求头
@@ -24,6 +25,9 @@ $axios.interceptors.request.use((config) => {
 $axios.interceptors.response.use((response) => {
   if (typeof response.data.data === 'string') {
     showNotify({ type: 'success', message: response.data.data })
+  }
+  if (response.data.data === null) {
+    showNotify({ type: 'warning', message: response.data.message })
   }
   return response
 }, (error) => {
