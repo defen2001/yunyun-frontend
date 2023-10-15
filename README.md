@@ -1,18 +1,52 @@
-# Vue 3 + TypeScript + Vite
+# 芸芸偕行 (前端) - yunyun-frontend
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-## Recommended IDE Setup
+## 项目介绍
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+芸芸偕行，乃以标签和队伍的社交平台，志在协助用户轻松寻觅志趣相投之同道伙伴，联袂出发，共同踏上旅程之路。
 
-## Type Support For `.vue` Imports in TS
+此为该项目的前端部分, 后端部分请移步 [yunyun-backend](https://github.com/defen2001/yunyun-backend)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## 项目技术栈
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- Vue
+- Vant
+- TypeScript
+- Vite
+- VueRouter
+- Pinia
+- Axios
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## 项目结构
+
+```
+src                 源代码
+├─api               ├─API 接口
+├─components        ├─公共组件
+├─layouts           ├─布局组件
+├─models            ├─数据模型
+├─pages             ├─页面
+│  ├─home           │  ├─主页
+│  ├─mine           │  ├─我的
+│  │  └─account     │  │  └─账号
+│  └─team           │  └─队伍
+├─routers           ├─路由定义
+├─store             ├─状态管理
+└─utils             └─工具类
+```
+
+## 快速启动
+```
+# 克隆到本地
+git clone https://github.com/defen2001/yunyun-frontend.git
+
+# 进入文件夹
+cd yunyun-frontend
+
+# 安装依赖
+npm install 或 yarn(推荐)
+
+# 开启本地服务器localhost:80
+vite
+# 发布环境
+```
